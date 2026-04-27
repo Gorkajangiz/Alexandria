@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.ImageView?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+    xmlns:fx="http://javafx.com/fxml"
+    fx:controller="controllers.MainAppController"
+    fx:id="rootPane"
+    styleClass="root-pane">
+
+    <!-- MAIN LAYOUT -->
+    <VBox StackPane.alignment="TOP_LEFT">
+
+
+        <!-- CONTENT AREA (tabs stacked) -->
+        <StackPane VBox.vgrow="ALWAYS" fx:id="contentArea" styleClass="content-area">
+
+            <!-- SEARCH PANE -->
+            <VBox fx:id="searchPane" spacing="0" styleClass="tab-pane">
+                <VBox alignment="CENTER" spacing="22" styleClass="search-hero">
+                    <padding>
+                        <Insets top="80" right="40" bottom="40" left="40" />
+                    </padding>
+                    <Label text="¿Qué juego te gustaría añadir?" styleClass="hero-title" />
+                    <HBox alignment="CENTER_LEFT" spacing="12" styleClass="search-box-wrap"
+                        maxWidth="900">
+                        <padding>
+                            <Insets top="0" right="16" bottom="0" left="0" />
+                        </padding>
+                        <TextField fx:id="searchField" promptText="Busca entre miles de juegos..."
+                            HBox.hgrow="ALWAYS" styleClass="search-input" />
+                    </HBox>
+                    <Label fx:id="searchMessage" text="Escribe al menos 2 caracteres"
+                        styleClass="hint-label" />
+                    <CheckBox fx:id="searchMoreOptionsToggle" text="Show more options?"
+                        styleClass="styled-checkbox" visible="false" />
+                </VBox>
+                <ScrollPane fx:id="searchScrollPane" fitToWidth="true" VBox.vgrow="ALWAYS"
+                    styleClass="grid-scroll">
+                    <FlowPane fx:id="searchResultsGrid" hgap="20" vgap="20" styleClass="games-grid"
+                        alignment="TOP_LEFT">
+                        <padding>
+                            <Insets top="20" right="20" bottom="40" left="20" />
+                        </padding>
+                    </FlowPane>
+                </ScrollPane>
+            </VBox>
+
+            <!-- LIBRARY PANE -->
+            <VBox fx:id="libraryPane" spacing="0" styleClass="tab-pane" visible="false"
+                managed="false">
+                <HBox alignment="CENTER_LEFT" spacing="16" styleClass="section-header">
+                    <padding>
+                        <Insets top="24" right="30" bottom="16" left="30" />
+                    </padding>
+                    <VBox spacing="3">
+                        <Label text="Mi Biblioteca" styleClass="section-title" />
+                        <Label fx:id="libraryCounter" text="0 juegos" styleClass="section-sub" />
+                    </VBox>
+                    <Region HBox.hgrow="ALWAYS" />
+                    <HBox alignment="CENTER" spacing="8">
+                        <Label text="Filtrar:" styleClass="filter-label" />
+                        <ComboBox fx:id="libraryFilter" prefWidth="170" styleClass="styled-combo" />
+                    </HBox>
+                </HBox>
+                <Separator styleClass="section-sep" />
+                <ScrollPane fx:id="libraryScrollPane" fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="grid-scroll">
+                    <VBox>
+                        <FlowPane fx:id="libraryGrid" hgap="20" vgap="20" styleClass="games-grid">
+                            <padding>
+                                <Insets top="20" right="20" bottom="40" left="20" />
+                            </padding>
+                        </FlowPane>
+                        <Label fx:id="libraryMessage" styleClass="empty-msg" visible="false" />
+                    </VBox>
+                </ScrollPane>
+            </VBox>
+
+            <!-- WISHLIST PANE -->
+            <VBox fx:id="wishlistPane" spacing="0" styleClass="tab-pane" visible="false"
+                managed="false">
+                <HBox alignment="CENTER_LEFT" spacing="16" styleClass="section-header">
+                    <padding>
+                        <Insets top="24" right="30" bottom="16" left="30" />
+                    </padding>
+                    <VBox spacing="3">
+                        <Label text="Mi Wishlist" styleClass="section-title" />
+                        <Label fx:id="wishlistCounter" text="0 juegos" styleClass="section-sub" />
+                    </VBox>
+                </HBox>
+                <Separator styleClass="section-sep" />
+                <ScrollPane fx:id="wishlistScrollPane" fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="grid-scroll">
+                    <VBox>
+                        <FlowPane fx:id="wishlistGrid" hgap="20" vgap="20" styleClass="games-grid">
+                            <padding>
+                                <Insets top="20" right="20" bottom="40" left="20" />
+                            </padding>
+                        </FlowPane>
+                        <Label fx:id="wishlistMessage" styleClass="empty-msg" visible="false" />
+                    </VBox>
+                </ScrollPane>
+            </VBox>
+
+            <!-- STATS PANE -->
+            <VBox fx:id="statsPane" spacing="0" styleClass="tab-pane" visible="false"
+                managed="false">
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="grid-scroll">
+                    <VBox spacing="25" styleClass="stats-container">
+                        <padding>
+                            <Insets top="34" right="40" bottom="40" left="40" />
+                        </padding>
+
+                        <Label text="Resumen de tu Actividad" styleClass="section-title" />
+
+                        <GridPane hgap="22" vgap="22">
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="35" />
+                                <ColumnConstraints percentWidth="65" />
+                            </columnConstraints>
+
+                            <!-- Col 1: Main Count -->
+                            <VBox GridPane.columnIndex="0" GridPane.rowIndex="0"
+                                GridPane.rowSpan="2"
+                                styleClass="stats-card, card-primary" minHeight="300">
+                                <Label text="Total Juegos" styleClass="card-label" />
+                                <Label fx:id="statsTotalGames" text="0"
+                                    styleClass="card-value-large" />
+                                <Region VBox.vgrow="ALWAYS" />
+                                <HBox alignment="CENTER_LEFT" spacing="12">
+                                    <ProgressBar fx:id="statsCompletionBar" progress="0.0"
+                                        HBox.hgrow="ALWAYS" styleClass="stats-progress" />
+                                    <Label fx:id="statsCompletionLabel" text="0%"
+                                        styleClass="card-sub-value" />
+                                </HBox>
+                                <Label text="Completados" styleClass="card-hint" />
+                            </VBox>
+
+                            <!-- Col 2: Top row -->
+                            <HBox GridPane.columnIndex="1" GridPane.rowIndex="0" spacing="22">
+                                <VBox styleClass="stats-card" HBox.hgrow="ALWAYS">
+                                    <Label text="Nota Media" styleClass="card-label" />
+                                    <Label fx:id="statsAvgGrade" text="0.0" styleClass="card-value" />
+                                    <Label text="Puntuación personal" styleClass="card-hint" />
+                                </VBox>
+                                <VBox styleClass="stats-card" HBox.hgrow="ALWAYS">
+                                    <Label text="Favoritos" styleClass="card-label" />
+                                    <Label fx:id="statsFavCount" text="0" styleClass="card-value" />
+                                    <Label text="Juegos destacados" styleClass="card-hint" />
+                                </VBox>
+                            </HBox>
+
+                            <!-- Col 2: Bottom row -->
+                            <HBox GridPane.columnIndex="1" GridPane.rowIndex="1" spacing="22">
+                                <VBox styleClass="stats-card" HBox.hgrow="ALWAYS">
+                                    <Label text="Generación" styleClass="card-label" />
+                                    <HBox spacing="20" alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
+                                        <VBox alignment="CENTER">
+                                            <Label fx:id="statsNewGames" text="0"
+                                                styleClass="card-value-small" />
+                                            <Label text="Modernos" styleClass="card-hint-sm" />
+                                        </VBox>
+                                        <Separator orientation="VERTICAL"
+                                            styleClass="section-sep-sm" maxHeight="30" />
+                                        <VBox alignment="CENTER">
+                                            <Label fx:id="statsOldGames" text="0"
+                                                styleClass="card-value-small" />
+                                            <Label text="Retro" styleClass="card-hint-sm" />
+                                        </VBox>
+                                    </HBox>
+                                </VBox>
+                                <VBox styleClass="stats-card" HBox.hgrow="ALWAYS">
+                                    <Label text="Actividad" styleClass="card-label" />
+                                    <VBox spacing="10" alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
+                                        <VBox spacing="4">
+                                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                                <Label text="Jugando" styleClass="card-hint-sm"
+                                                    minWidth="65" />
+                                                <ProgressBar fx:id="statsPlayingBar" progress="0.0"
+                                                    HBox.hgrow="ALWAYS"
+                                                    styleClass="stats-progress, progress-playing" />
+                                            </HBox>
+                                        </VBox>
+                                        <VBox spacing="4">
+                                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                                <Label text="Wishlist" styleClass="card-hint-sm"
+                                                    minWidth="65" />
+                                                <ProgressBar fx:id="statsWishlistBar" progress="0.0"
+                                                    HBox.hgrow="ALWAYS"
+                                                    styleClass="stats-progress, progress-wishlist" />
+                                            </HBox>
+                                        </VBox>
+                                    </VBox>
+                                </VBox>
+                            </HBox>
+                        </GridPane>
+
+                        <!-- Milestones row -->
+                        <HBox spacing="22">
+                            <VBox styleClass="stats-card" HBox.hgrow="ALWAYS">
+                                <Label text="Obras Maestras" styleClass="card-label" />
+                                <Label fx:id="statsMasterpieces" text="0" styleClass="card-value" />
+                                <Label text="Juegos con 90+ de nota" styleClass="card-hint" />
+                            </VBox>
+                            <VBox styleClass="stats-card" HBox.hgrow="ALWAYS">
+                                <Label text="Crítico Literario" styleClass="card-label" />
+                                <Label fx:id="statsTotalComments" text="0" styleClass="card-value" />
+                                <Label text="Juegos con comentarios" styleClass="card-hint" />
+                            </VBox>
+                        </HBox>
+
+                        <!-- Top Games Section -->
+                        <VBox styleClass="stats-card" spacing="15">
+                            <Label text="Tus Obras Maestras" styleClass="card-label" />
+                            <FlowPane fx:id="statsTopGamesGrid" hgap="16" vgap="16"
+                                alignment="TOP_LEFT">
+                                <!-- Top games cards will be injected here -->
+                            </FlowPane>
+                        </VBox>
+                    </VBox>
+                </ScrollPane>
+            </VBox>
+
+        </StackPane>
+
+        <!-- BOTTOM NAV BAR -->
+        <HBox alignment="CENTER" styleClass="bottom-nav" spacing="0">
+            <Button fx:id="btnStats" onAction="#onNavStats" styleClass="nav-btn" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                <graphic>
+                    <VBox alignment="CENTER" spacing="4">
+                        <Label text="📊" styleClass="nav-icon" />
+                        <Label text="Estadísticas" styleClass="nav-text" />
+                    </VBox>
+                </graphic>
+            </Button>
+            <Button fx:id="btnSearch" onAction="#onNavSearch" styleClass="nav-btn" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                <graphic>
+                    <VBox alignment="CENTER" spacing="4">
+                        <Label text="🔍" styleClass="nav-icon" />
+                        <Label text="Buscar" styleClass="nav-text" />
+                    </VBox>
+                </graphic>
+            </Button>
+            <Button fx:id="btnLibrary" onAction="#onNavLibrary" styleClass="nav-btn" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                <graphic>
+                    <VBox alignment="CENTER" spacing="4">
+                        <Label text="🎮" styleClass="nav-icon" />
+                        <Label text="Biblioteca" styleClass="nav-text" />
+                    </VBox>
+                </graphic>
+            </Button>
+            <Button fx:id="btnWishlist" onAction="#onNavWishlist" styleClass="nav-btn" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                <graphic>
+                    <VBox alignment="CENTER" spacing="4">
+                        <Label text="✨" styleClass="nav-icon" />
+                        <Label text="Wishlist" styleClass="nav-text" />
+                    </VBox>
+                </graphic>
+            </Button>
+        </HBox>
+    </VBox>
+
+    <!-- SIDE MENU OVERLAY -->
+    <StackPane fx:id="sideMenuOverlay" styleClass="overlay-bg" visible="false"
+        onMouseClicked="#toggleSideMenu">
+        <VBox fx:id="sideMenu" styleClass="side-menu" maxWidth="320" StackPane.alignment="TOP_LEFT"
+            translateX="-320">
+            <padding>
+                <Insets top="40" right="24" bottom="40" left="24" />
+            </padding>
+
+            <HBox alignment="CENTER_RIGHT">
+                <Button text="✕" onAction="#toggleSideMenu" styleClass="btn-close" />
+            </HBox>
+
+            <VBox alignment="CENTER" spacing="20" VBox.vgrow="ALWAYS">
+                <Label text="( )" styleClass="profile-avatar" />
+                <Label fx:id="profileName" text="Usuario" styleClass="profile-name" />
+                <Label fx:id="profileEmail" text="" styleClass="profile-email" />
+
+                <Separator styleClass="section-sep" maxWidth="Infinity" />
+
+                <Label fx:id="profileStats" text="" wrapText="true" textAlignment="CENTER"
+                    styleClass="profile-stats" />
+
+                <Region VBox.vgrow="ALWAYS" />
+
+                <Button text="⚙  Ajustes" onAction="#openSettings"
+                    styleClass="btn-secondary" maxWidth="Infinity" />
+
+                <Button text="Cerrar sesión" onAction="#handleLogout"
+                    styleClass="btn-danger" maxWidth="Infinity" />
+            </VBox>
+        </VBox>
+    </StackPane>
+
+    <!-- TOP LEFT MENU BUTTON -->
+    <Button fx:id="btnMenu" text="☰" onAction="#toggleSideMenu"
+        styleClass="menu-icon-btn" StackPane.alignment="TOP_LEFT">
+        <StackPane.margin>
+            <Insets top="10" left="15" />
+        </StackPane.margin>
+    </Button>
+
+    <!-- ADD GAME OVERLAY -->
+    <StackPane fx:id="addGameOverlay" styleClass="overlay-bg" visible="false">
+        <VBox fx:id="addGamePanel" styleClass="add-game-panel"
+            maxWidth="920" maxHeight="660" spacing="0">
+
+            <!-- Header -->
+            <HBox alignment="CENTER_LEFT" spacing="12" styleClass="panel-header">
+                <padding>
+                    <Insets top="18" right="24" bottom="18" left="24" />
+                </padding>
+                <Label text="Detalles del Juego" styleClass="panel-title" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button text="X" onAction="#closeAddGameOverlay" styleClass="btn-close" />
+            </HBox>
+
+            <!-- Body: Details + form -->
+            <HBox VBox.vgrow="ALWAYS" spacing="0">
+                <!-- Left: Info & Summary -->
+                <VBox spacing="16" minWidth="450" maxWidth="450" styleClass="add-info-column">
+                    <padding>
+                        <Insets top="20" right="24" bottom="24" left="24" />
+                    </padding>
+                    <HBox spacing="18">
+                        <StackPane>
+                            <ImageView fx:id="addFormCover" fitWidth="140" fitHeight="190"
+                                preserveRatio="false" styleClass="add-cover-preview" />
+                        </StackPane>
+                        <VBox spacing="10">
+                            <Label fx:id="addFormTitle" text="Game Title" wrapText="true"
+                                styleClass="form-game-title" maxWidth="240" />
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label fx:id="addFormMeta" text="2024 • Action"
+                                    styleClass="add-meta-label" />
+                            </HBox>
+                            <Label fx:id="addFormRating" text="8.5 ★" styleClass="add-rating-label" />
+                        </VBox>
+                    </HBox>
+                    <VBox spacing="6" VBox.vgrow="ALWAYS">
+                        <Label text="Resumen" styleClass="form-label" />
+                        <ScrollPane fitToWidth="true" styleClass="summary-scroll"
+                            VBox.vgrow="ALWAYS">
+                            <Label fx:id="addFormSummary" text="Cargando resumen..."
+                                wrapText="true" styleClass="summary-text" />
+                        </ScrollPane>
+                    </VBox>
+                </VBox>
+
+                <Separator orientation="VERTICAL" styleClass="section-sep" />
+
+                <VBox fx:id="addFormPanel" spacing="14" styleClass="add-form" HBox.hgrow="ALWAYS">
+                    <padding>
+                        <Insets top="24" right="30" bottom="24" left="30" />
+                    </padding>
+
+                    <VBox spacing="8">
+                        <Label text="Tu nota personal" styleClass="form-label" />
+                        <TextField fx:id="addNoteField"
+                            promptText="Escribe un numero del 0 al 100..."
+                            styleClass="search-input" />
+                    </VBox>
+
+                    <VBox spacing="8">
+                        <Label text="Estado del juego" styleClass="form-label" />
+                        <ComboBox fx:id="addStateFilter" styleClass="filter-combo" maxWidth="Infinity" />
+                    </VBox>
+
+                    <VBox spacing="8">
+                        <Label text="¿Qué te ha parecido?" styleClass="form-label" />
+                        <TextArea fx:id="addComment"
+                            promptText="Escribe aqui tus impresiones, criticas o notas personales..."
+                            wrapText="true" styleClass="styled-textarea" prefHeight="200" />
+                    </VBox>
+
+                    <ToggleButton fx:id="addFavToggle" text="☆  Marcar favorito"
+                        styleClass="fav-toggle" maxWidth="Infinity" />
+
+                    <Region VBox.vgrow="ALWAYS" />
+                    <Button fx:id="addConfirmBtn" text="Anadir a mi biblioteca"
+                        onAction="#confirmarAddJuego" styleClass="btn-primary"
+                        maxWidth="Infinity" prefHeight="50" />
+                </VBox>
+            </HBox>
+        </VBox>
+    </StackPane>
+
+    <!-- GAME DETAIL OVERLAY -->
+    <StackPane fx:id="gameDetailOverlay" styleClass="overlay-bg" visible="false">
+        <VBox styleClass="add-game-panel" maxWidth="1100" maxHeight="850">
+            <HBox alignment="CENTER_LEFT" spacing="12" styleClass="panel-header">
+                <padding><Insets top="18" right="24" bottom="18" left="24" /></padding>
+                <Label fx:id="detailTitle" text="Nombre del Juego" styleClass="panel-title" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button text="✕" onAction="#closeGameDetailOverlay" styleClass="btn-close" />
+            </HBox>
+            <ScrollPane fitToWidth="true" styleClass="grid-scroll" VBox.vgrow="ALWAYS">
+                <VBox spacing="30">
+                    <padding><Insets top="30" right="40" bottom="30" left="40" /></padding>
+                    <HBox spacing="35">
+                        <ImageView fx:id="detailCover" fitWidth="220" preserveRatio="true" />
+                        <VBox spacing="15" HBox.hgrow="ALWAYS">
+                            <Label fx:id="detailMeta" text="..." styleClass="hero-sub" />
+                            <Label fx:id="detailRating" text="..." styleClass="add-rating-label" />
+                            <Separator styleClass="section-sep" />
+                            <Label text="Resumen" styleClass="card-label" />
+                            <Label fx:id="detailSummary" text="..." wrapText="true" styleClass="summary-text" />
+                        </VBox>
+                    </HBox>
+                    <VBox spacing="15">
+                        <Label text="Capturas de pantalla" styleClass="card-label" />
+                        <FlowPane fx:id="detailGallery" hgap="12" vgap="12" />
+                    </VBox>
+                </VBox>
+            </ScrollPane>
+            <HBox spacing="15" alignment="CENTER_RIGHT" styleClass="panel-header">
+                <padding><Insets top="15" right="30" bottom="15" left="30" /></padding>
+                <Button text="Marcar como Jugando" onAction="#onDetailActionPlaying" styleClass="btn-secondary" />
+                <Button text="Añadir a Wishlist" onAction="#onDetailActionWishlist" styleClass="btn-secondary" />
+                <Button text="Evaluar Juego" onAction="#onDetailActionGrade" styleClass="btn-primary" prefHeight="40" prefWidth="160" />
+            </HBox>
+        </VBox>
+    </StackPane>
+
+    <!-- LIBRARY DETAIL OVERLAY -->
+    <StackPane fx:id="libraryDetailOverlay" styleClass="overlay-bg" visible="false">
+        <VBox styleClass="add-game-panel" maxWidth="1100" maxHeight="850">
+            <HBox alignment="CENTER_LEFT" spacing="12" styleClass="panel-header">
+                <padding><Insets top="18" right="24" bottom="18" left="24" /></padding>
+                <Label fx:id="libDetailTitle" text="Detalles del Juego" styleClass="panel-title" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button text="✕" onAction="#closeLibraryDetailOverlay" styleClass="btn-close" />
+            </HBox>
+
+            <HBox VBox.vgrow="ALWAYS">
+                <!-- Left: Game Info -->
+                <VBox spacing="20" prefWidth="480" styleClass="add-left-panel" HBox.hgrow="ALWAYS">
+                    <padding>
+                        <Insets top="30" right="30" bottom="10" left="30" />
+                    </padding>
+                    <HBox spacing="20">
+                        <ImageView fx:id="libDetailCover" fitWidth="160" preserveRatio="true" />
+                        <VBox spacing="10" HBox.hgrow="ALWAYS">
+                            <Label fx:id="libDetailMeta" text="..." styleClass="hero-sub" wrapText="true" />
+                            <Label fx:id="libDetailRating" text="..." styleClass="add-rating-label" />
+                        </VBox>
+                    </HBox>
+                    <Separator styleClass="section-sep" />
+                    <Label text="Resumen" styleClass="card-label" />
+                    <ScrollPane fitToWidth="true" styleClass="grid-scroll" style="-fx-background: transparent; -fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+                        <VBox spacing="15">
+                            <Label fx:id="libDetailSummary" text="..." wrapText="true" styleClass="summary-text" />
+                            <Label text="Capturas de pantalla" styleClass="card-label" />
+                            <FlowPane fx:id="libDetailGallery" hgap="12" vgap="12" />
+                        </VBox>
+                    </ScrollPane>
+                </VBox>
+
+                <Separator orientation="VERTICAL" styleClass="section-sep" />
+
+                <!-- Right: User Info & Actions -->
+                <VBox spacing="14" styleClass="add-form" prefWidth="400">
+                    <padding>
+                        <Insets top="24" right="30" bottom="24" left="30" />
+                    </padding>
+
+                    <VBox spacing="8">
+                        <Label text="Tu nota personal" styleClass="form-label" />
+                        <TextField fx:id="libDetailNoteField" promptText="Escribe un numero del 0 al 100..." styleClass="search-input" />
+                    </VBox>
+
+                    <VBox spacing="8">
+                        <Label text="Estado del juego" styleClass="form-label" />
+                        <ComboBox fx:id="libDetailStateFilter" styleClass="filter-combo" maxWidth="Infinity" />
+                    </VBox>
+
+                    <VBox spacing="8">
+                        <Label text="Comentarios" styleClass="form-label" />
+                        <TextArea fx:id="libDetailComment" promptText="Tus impresiones..." wrapText="true" styleClass="styled-textarea" prefHeight="200" VBox.vgrow="ALWAYS" />
+                    </VBox>
+
+                    <ToggleButton fx:id="libDetailFavToggle" text="☆  Marcar favorito" styleClass="fav-toggle" maxWidth="Infinity" />
+
+                    <Region VBox.vgrow="ALWAYS" />
+                </VBox>
+            </HBox>
+
+            <HBox spacing="15" alignment="CENTER_RIGHT" styleClass="panel-header">
+                <padding><Insets top="15" right="30" bottom="15" left="30" /></padding>
+                <Button text="Eliminar juego" onAction="#onDetailActionDelete" styleClass="btn-danger" prefHeight="40" prefWidth="160" />
+                <Button text="Guardar cambios" onAction="#onDetailActionSave" styleClass="btn-primary" prefHeight="40" prefWidth="160" />
+            </HBox>
+        </VBox>
+    </StackPane>
+
+    <!-- SETTINGS OVERLAY -->
+    <StackPane fx:id="settingsOverlay" styleClass="overlay-bg" visible="false">
+        <HBox fx:id="settingsPanel" styleClass="add-game-panel" maxWidth="1000" maxHeight="700">
+            <!-- Left Nav -->
+            <VBox spacing="10" prefWidth="240" styleClass="panel-header" style="-fx-background-color: #161b22; -fx-background-radius: 14 0 0 14;">
+                <padding><Insets top="40" right="15" bottom="40" left="15" /></padding>
+                <Label text="AJUSTES" styleClass="hero-sub" style="-fx-padding: 0 0 20 10; -fx-font-size: 14;" />
+                <Button fx:id="btnSettingsGeneral" text="General" onAction="#showSettingsGeneral" styleClass="nav-btn-settings, nav-active-settings" maxWidth="Infinity" alignment="CENTER_LEFT" />
+                <Region VBox.vgrow="ALWAYS" />
+                <Button text="✕  Cerrar" onAction="#closeSettings" styleClass="btn-secondary" maxWidth="Infinity" />
+            </VBox>
+            
+            <!-- Right Content -->
+            <VBox HBox.hgrow="ALWAYS">
+                <HBox alignment="CENTER_LEFT" spacing="12" styleClass="panel-header" style="-fx-background-radius: 0 14 0 0;">
+                    <padding><Insets top="18" right="24" bottom="18" left="24" /></padding>
+                    <Label fx:id="settingsTitle" text="General" styleClass="panel-title" />
+                </HBox>
+                <StackPane fx:id="settingsContent" VBox.vgrow="ALWAYS" style="-fx-padding: 30;">
+                    <!-- Content will be injected or defined here -->
+                    <VBox spacing="25">
+                        <VBox spacing="8">
+                            <Label text="Interfaz" styleClass="card-label" />
+                            <CheckBox text="Iniciar en pantalla completa" selected="false" styleClass="filter-combo" />
+                            <CheckBox text="Animaciones fluidas" selected="true" styleClass="filter-combo" />
+                            <CheckBox fx:id="checkShortcutWheel" text="Rueda de atajos" selected="true" styleClass="filter-combo" />
+                        </VBox>
+                        <Separator styleClass="section-sep" />
+                        <VBox spacing="8">
+                            <Label text="Cuenta" styleClass="card-label" />
+                            <Button text="Cambiar contraseña" styleClass="btn-secondary" />
+                        </VBox>
+                    </VBox>
+                </StackPane>
+            </VBox>
+        </HBox>
+    </StackPane>
+</StackPane>

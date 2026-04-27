@@ -1,0 +1,14 @@
+C:\Users\gorka\IdeaProjects\Alexandria\src\main\java\config\FirebaseInit.java
+C:\Users\gorka\IdeaProjects\Alexandria\src\main\java\controllers\AppController.java
+C:\Users\gorka\IdeaProjects\Alexandria\src\main\java\controllers\BibliotecaController.java
+C:\Users\gorka\IdeaProjects\Alexandria\src\main\java\controllers\LoginController.java
+C:\Users\gorka\IdeaProjects\Alexandria\src\main\java\controllers\MainAppController.java
+C:\Users\gorka\IdeaProjects\Alexandria\src\main\java\controllers\MainController.java
+C:\Users\gorka\IdeaProjects\Alexandria\src\main\java\main\App.java
+C:\Users\gorka\IdeaProjects\Alexandria\src\main\java\models\EstadoJuego.java
+C:\Users\gorka\IdeaProjects\Alexandria\src\main\java\models\Juego.java
+C:\Users\gorka\IdeaProjects\Alexandria\src\main\java\models\Usuario.java
+C:\Users\gorka\IdeaProjects\Alexandria\src\main\java\services\AuthRestService.java
+C:\Users\gorka\IdeaProjects\Alexandria\src\main\java\services\IGDBService.java
+C:\Users\gorka\IdeaProjects\Alexandria\src\main\java\services\JuegoService.java
+C:\Users\gorka\IdeaProjects\Alexandria\src\main\java\utils\GameCard.java

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.BibliotecaController"
+      fx:id="biblioRoot">
+
+    <HBox alignment="CENTER_LEFT" spacing="15" styleClass="navbar">
+        <padding>
+            <Insets top="15" right="25" bottom="15" left="25"/>
+        </padding>
+        <Text fx:id="navLogo" text="MI BIBLIOTECA"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Buscar Juegos" onAction="#handleIrABuscar" styleClass="btn-nav"/>
+        <Button text="Cerrar Sesión" onAction="#handleLogout" styleClass="btn-nav-danger"/>
+    </HBox>
+
+    <HBox alignment="CENTER_LEFT" spacing="20" styleClass="toolbar">
+        <padding>
+            <Insets top="10" right="25" bottom="10" left="25"/>
+        </padding>
+        <Label fx:id="contadorLabel" text="0 juegos guardados"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label text="Estado:"/>
+            <ComboBox fx:id="filtroEstado" prefWidth="180"/>
+        </HBox>
+    </HBox>
+
+    <Separator/>
+
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="grid-scroll">
+        <VBox spacing="10">
+            <padding>
+                <Insets top="20" right="25" bottom="20" left="25"/>
+            </padding>
+            <FlowPane fx:id="gamesGrid" hgap="25" vgap="25" alignment="TOP_LEFT"/>
+            <Label fx:id="messageLabel"/>
+        </VBox>
+    </ScrollPane>
+</VBox>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="controllers.LoginController"
+           fx:id="loginRoot"
+           styleClass="root-pane">
+
+    <VBox alignment="CENTER" styleClass="login-bg">
+
+        <VBox alignment="CENTER" spacing="32" styleClass="login-card" maxWidth="420">
+            <padding><Insets top="48" right="48" bottom="48" left="48"/></padding>
+
+            <!-- Logo -->
+            <VBox alignment="CENTER" spacing="8">
+                <Label text="ALEXANDRIA" styleClass="login-logo"/>
+                <Label text="Tu biblioteca de juegos personal" styleClass="login-tagline"/>
+            </VBox>
+
+            <!-- Fields -->
+            <VBox spacing="14">
+                <TextField fx:id="emailField" promptText="Correo electronico"
+                           prefHeight="48" styleClass="login-field"/>
+                <PasswordField fx:id="passwordField" promptText="Contrasena"
+                               prefHeight="48" styleClass="login-field"/>
+            </VBox>
+
+            <!-- Buttons -->
+            <VBox spacing="10">
+                <Button text="Iniciar sesion" onAction="#handleLogin"
+                        maxWidth="Infinity" prefHeight="48" styleClass="btn-primary"/>
+                <Button text="Crear nueva cuenta" onAction="#handleRegister"
+                        maxWidth="Infinity" prefHeight="48" styleClass="btn-secondary"/>
+            </VBox>
+
+            <Label fx:id="messageLabel" wrapText="true" textAlignment="CENTER"
+                   styleClass="form-error-msg"/>
+        </VBox>
+
+    </VBox>
+
+</StackPane>

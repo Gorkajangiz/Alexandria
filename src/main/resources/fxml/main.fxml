@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.MainController"
+      fx:id="mainRoot">
+
+    <HBox alignment="CENTER_LEFT" spacing="15" styleClass="navbar">
+        <padding>
+            <Insets top="15" right="25" bottom="15" left="25"/>
+        </padding>
+        <Text fx:id="navLogo" text="ALEXANDRIA"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Mi Biblioteca" onAction="#handleIrABiblioteca" styleClass="btn-nav"/>
+        <Button text="Cerrar Sesión" onAction="#handleLogout" styleClass="btn-nav-danger"/>
+    </HBox>
+
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+        <VBox spacing="20">
+            <padding>
+                <Insets top="30" right="30" bottom="30" left="30"/>
+            </padding>
+
+            <VBox alignment="CENTER" spacing="15" styleClass="search-container">
+                <Text text="Descubre tu próximo juego" styleClass="section-title"/>
+                <HBox alignment="CENTER" spacing="10" maxWidth="600">
+                    <TextField fx:id="searchField" promptText="Busca por nombre..."
+                               HBox.hgrow="ALWAYS" prefHeight="45"/>
+                    <Button text="Buscar" onAction="#handleSearch" prefHeight="45" prefWidth="100"/>
+                </HBox>
+                <Label fx:id="messageLabel"/>
+            </VBox>
+
+            <Separator/>
+
+            <VBox spacing="15">
+                <Text text="RESULTADOS" styleClass="label-bold"/>
+                <FlowPane fx:id="resultsGrid" hgap="25" vgap="25" alignment="TOP_LEFT"/>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+</VBox>
