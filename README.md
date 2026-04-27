@@ -29,6 +29,7 @@ en diseño y experiencia de usuario utilizando <strong>JavaFX</strong>.
 <h2>🛠️ Características principales</h2>
 
 <ul>
+  <li>Login y creación de cuentas gestionadas en firebase</li>
   <li>Arquitectura basada en <strong>MVC (Modelo, vista, controlador)</strong></li>
   <li>Gestión completa de biblioteca de videojuegos</li>
   <li>Sistema de valoraciones y comentarios por juego</li>
