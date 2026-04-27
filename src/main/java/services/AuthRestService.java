@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class AuthRestService {
 
-    private static final String API_KEY = "Disponible solo en local ;)";
+    private static final String API_KEY = "";
     private Usuario usuarioActual;
     private Firestore db;
     private HttpClient client;
